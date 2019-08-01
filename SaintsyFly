@@ -13,7 +13,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\utils\TextFormat;
 class BlazinFly extends PluginBase implements Listener{
-	private const PREFIX = TextFormat::AQUA . "BlazinFly" . TextFormat::GOLD . " > ";
+	private const PREFIX = TextFormat::AQUA . "BlazinFly" . TextFormat::YELLOW . " > ";
 	private const VERSION = "v1.8.7";
 	public function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
