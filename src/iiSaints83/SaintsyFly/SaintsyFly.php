@@ -1,7 +1,9 @@
 <?php
-/**
+
 declare(strict_types=1);
-namespace iiFlamiinBlaze\BlazinFly;
+
+namespace iiSaints83\SaintsyFly;
+
 use pocketmine\entity\Entity;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
@@ -12,14 +14,18 @@ use pocketmine\command\CommandSender;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\utils\TextFormat;
-class BlazinFly extends PluginBase implements Listener{
+
+class SaintsyFly extends PluginBase implements Listener{
+	
 	private const PREFIX = TextFormat::AQUA . "BlazinFly" . TextFormat::YELLOW . " > ";
 	private const VERSION = "v1.8.7";
+	
 	public function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 	}
+	
 	private function multiWorldCheck(Entity $entity) : bool{
 		if(!$entity instanceof Player) return false;
 		if($this->getConfig()->get("multi-world") === "on"){
@@ -34,6 +40,7 @@ class BlazinFly extends PluginBase implements Listener{
 		}elseif($this->getConfig()->get("multi-world") === "off") return true;
 		return true;
 	}
+	
 	public function onJoin(PlayerJoinEvent $event) : void{
 		$player = $event->getPlayer();
 		if($this->getConfig()->get("onJoin-FlyReset") === true){
@@ -42,6 +49,7 @@ class BlazinFly extends PluginBase implements Listener{
 			$player->sendMessage($this->getConfig()->get("fly-disabled"));
 		}
 	}
+	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		if($command->getName() === "fly"){
 			if(!$sender instanceof Player){
@@ -77,7 +85,7 @@ class BlazinFly extends PluginBase implements Listener{
 					$player->setAllowFlight($player->getAllowFlight() === false ? true : false);
 					$player->setFlying($player->isFlying() === false ? true : false);
 				}else{
-					$sender->sendMessage(self::PREFIX . TextFormat::AQUA . $player->getName() . " is in creative mode);
+					$sender->sendMessage(self::PREFIX . TextFormat::AQUA . $player->getName() . " is in creative mode");
 					return false;
 				}
 			}else{
@@ -87,6 +95,7 @@ class BlazinFly extends PluginBase implements Listener{
 		}
 		return true;
 	}
+	
 	public function onDamage(EntityDamageEvent $event) : void{
 		$entity = $event->getEntity();
 		if($this->getConfig()->get("onDamage-FlyReset") === true){
